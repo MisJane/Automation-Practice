@@ -18,3 +18,40 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+tasks.register('smokeTest', Test) {
+    description = 'Runs tests tagged with @Tag("SMOKE")'
+    group = 'verification'
+
+    useJUnitPlatform {
+        includeTags 'SMOKE'
+    }
+
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+tasks.register('backTest', Test) {
+    description = 'Runs tests tagged with @Tag("BACK")'
+    group = 'verification'
+
+    useJUnitPlatform {
+        includeTags 'BACK'
+    }
+
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+tasks.register('smokeBackTest', Test) {
+    description = 'Runs tests tagged with @Tag("SMOKE") or @Tag("BACK")'
+    group = 'verification'
+
+    useJUnitPlatform {
+        includeTags 'SMOKE', 'BACK'
+        excludeTags 'WEB'
+    }
+
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+}
