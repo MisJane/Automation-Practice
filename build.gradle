@@ -1,9 +1,28 @@
 plugins {
     id 'java'
+    id 'io.qameta.allure' version '3.2.0'
 }
 
 group = 'com.teach'
 version = '1.0-SNAPSHOT'
+
+allure {
+    version.set("2.30.0")
+
+    adapter {
+        allureJavaVersion.set("2.33.0")
+        aspectjVersion.set("1.9.24")
+
+        categoriesFile.set(layout.projectDirectory.file("config/allure/categories.json"))
+
+        frameworks {
+            junit5 {
+                enabled.set(true)
+                autoconfigureListeners.set(true)
+            }
+        }
+    }
+}
 
 repositories {
     mavenCentral()
@@ -18,8 +37,9 @@ dependencies {
     testImplementation 'org.apache.pdfbox:pdfbox:2.0.30'
     testImplementation 'org.apache.poi:poi-ooxml:5.4.0'
     testImplementation 'com.opencsv:opencsv:5.9'
-    testImplementation('org.assertj:assertj-core:3.25.3')
+    testImplementation 'org.assertj:assertj-core:3.25.3'
     implementation 'com.google.code.gson:gson:2.10.1'
+    // implementation 'io.qameta.allure:io.qameta.allure.gradle.plugin:3.2.0'
 }
 
 test {
